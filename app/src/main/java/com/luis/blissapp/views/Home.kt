@@ -1,5 +1,6 @@
 package com.luis.blissapp.views
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,9 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -31,9 +35,11 @@ import com.luis.blissapp.viewmodels.HomeViewmodel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun Home(modifier: Modifier, onEmojiListClick: () -> Unit, viewmodel: HomeViewmodel = koinViewModel()){
+fun Home(modifier: Modifier, onEmojiListClick: () -> Unit, onAvatarListClick: () -> Unit,onSearchUsername:(String) -> Unit, viewmodel: HomeViewmodel = koinViewModel()){
     val randomEmoji by viewmodel.randomEmojiState.collectAsState()
-
+    var username by rememberSaveable() {
+        mutableStateOf("")
+    }
     Box(contentAlignment = Alignment.Center,modifier = Modifier.fillMaxSize()) {
         Column(modifier = Modifier.padding(10.dp).fillMaxSize(), verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally) {
@@ -54,16 +60,20 @@ fun Home(modifier: Modifier, onEmojiListClick: () -> Unit, viewmodel: HomeViewmo
             Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                     TextField(
                         textStyle = TextStyle(textAlign = TextAlign.Center),
-                        value = stringResource(R.string.insert_github_username),
-                        onValueChange = {}, trailingIcon = {
+                        value = username,
+                        placeholder = {Text(stringResource(R.string.insert_github_username))},
+                        onValueChange = {username = it}, trailingIcon = {
                     IconButton(
-                        onClick = {},
+                        onClick = {
+                            onSearchUsername(username)
+                        },
                         content = {
                             Icon(Icons.Default.Search, contentDescription = stringResource(R.string.insert_github_username))
-
                         })
                 })
-                TextButton(onClick = {}, content = { Text(stringResource(R.string.avatar_list))})
+                TextButton(onClick = {
+                    onAvatarListClick()
+                }, content = { Text(stringResource(R.string.avatar_list))})
                 TextButton(onClick = {}, content = { Text(stringResource(R.string.google_repos))})
             }
         }

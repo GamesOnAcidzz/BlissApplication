@@ -2,10 +2,13 @@ package com.luis.blissapp
 
 import android.app.Application
 import androidx.room.Room
+import com.luis.blissapp.datasources.local.AvatarDatabase
 import com.luis.blissapp.datasources.local.EmojiDatabase
+import com.luis.blissapp.repository.AvatarRepository
 import com.luis.blissapp.repository.EmojiRepository
 import com.luis.blissapp.services.GithubApiService
-import com.luis.blissapp.viewmodels.EmojiListViewmodel
+import com.luis.blissapp.viewmodels.AvatarListViewModel
+import com.luis.blissapp.viewmodels.EmojiListViewModel
 import com.luis.blissapp.viewmodels.HomeViewmodel
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -25,7 +28,13 @@ class BlissApplication : Application(){
                         Room.databaseBuilder(get(), EmojiDatabase::class.java,"emoji_db").build()
                     }
                     single {
+                        Room.databaseBuilder(get(), AvatarDatabase::class.java,"avatar_db").build()
+                    }
+                    single {
                        get<EmojiDatabase>().emojiDao()
+                    }
+                    single {
+                        get<AvatarDatabase>().avatarDao()
                     }
 
                     single {
@@ -46,9 +55,18 @@ class BlissApplication : Application(){
                         EmojiRepository(get(), get())
                     }
 
-                    viewModel {
-                        EmojiListViewmodel(get())
+                    single {
+                        AvatarRepository(get(), get())
                     }
+
+                    viewModel {
+                        EmojiListViewModel(get())
+                    }
+
+                    viewModel {
+                        AvatarListViewModel(get())
+                    }
+
                     viewModel {
                         HomeViewmodel(get())
                     }

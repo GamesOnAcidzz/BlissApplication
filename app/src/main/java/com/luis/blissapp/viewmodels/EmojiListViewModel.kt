@@ -8,10 +8,9 @@ import com.luis.blissapp.repository.EmojiRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 
-class EmojiListViewmodel (private val repository: EmojiRepository) : ViewModel() {
+class EmojiListViewModel (private val repository: EmojiRepository) : ViewModel() {
     private val _emojiListState = MutableStateFlow<NetworkResult<List<Emoji>>>(NetworkResult.Loading)
             val emojiListState: StateFlow<NetworkResult<List<Emoji>>> = _emojiListState.asStateFlow()
 

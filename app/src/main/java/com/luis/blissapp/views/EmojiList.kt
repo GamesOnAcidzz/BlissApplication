@@ -1,6 +1,7 @@
 package com.luis.blissapp.views
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -15,15 +16,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.luis.blissapp.viewmodels.EmojiListViewmodel
+import com.luis.blissapp.viewmodels.EmojiListViewModel
 import coil3.compose.AsyncImage
 import com.luis.blissapp.network.NetworkResult
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun EmojiList(viewmodel: EmojiListViewmodel = koinViewModel()){
+fun EmojiList(modifier: Modifier = Modifier, viewmodel: EmojiListViewModel = koinViewModel()){
     val emojiListState by viewmodel.emojiListState.collectAsState()
     LaunchedEffect(Unit) {
         viewmodel.loadEmojis()
@@ -32,7 +34,9 @@ fun EmojiList(viewmodel: EmojiListViewmodel = koinViewModel()){
     ) {
         when (val state = emojiListState) {
             is NetworkResult.Loading -> {
-                CircularProgressIndicator()
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
             }
 
             is NetworkResult.Error -> {
