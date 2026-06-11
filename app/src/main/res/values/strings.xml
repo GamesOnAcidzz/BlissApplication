@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">BlissApp</string>
+    <string name="random_emoji">RandomEmoji</string>
+    <string name="emoji_list">Emoji List</string>
+    <string name="insert_github_username">insert github username</string>
+    <string name="avatar_list">Avatar List</string>
+    <string name="google_repos">Google Repos</string>
+</resources>
