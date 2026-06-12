@@ -70,11 +70,15 @@ fun AvatarList(modifier: Modifier = Modifier,viewmodel:AvatarListViewModel = koi
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(state.data) { avatar ->
-                    AsyncImage(
-                        model = avatar.url,
-                        contentDescription = avatar.login,
-                        modifier = Modifier.size(48.dp)
-                    )
+                    IconButton(onClick = {
+                        viewmodel.deleteAvatar(avatar)
+                    }) {
+                        AsyncImage(
+                            model = avatar.url,
+                            contentDescription = avatar.login,
+                            modifier = Modifier.size(48.dp)
+                        )
+                    }
                 }
             }
         }

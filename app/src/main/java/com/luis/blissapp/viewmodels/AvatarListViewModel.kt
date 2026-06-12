@@ -41,4 +41,10 @@ class AvatarListViewModel(private val repository: AvatarRepository): ViewModel()
             }
         }
     }
+    fun deleteAvatar(avatar:Avatar){
+        viewModelScope.launch {
+            repository.deleteAvatar(avatar)
+            _avatarListState.value = repository.fetchAvatars()
+        }
+    }
 }

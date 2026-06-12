@@ -45,4 +45,7 @@ class AvatarRepository (private val apiService: GithubApiService, private val av
             }
         }
     }
+    suspend fun deleteAvatar(avatar: Avatar){
+        avatarDao.delete(AvatarEntity(login = avatar.login, id = avatar.id, url = avatar.url))
+    }
 }
