@@ -44,7 +44,8 @@ dependencies {
     // If this project uses any Kotlin source, use Kotlin Symbol Processing (KSP)
     // See Add the KSP plugin to your project
     ksp("androidx.room:room-compiler:$room_version")
-
+    implementation("androidx.paging:paging-runtime-ktx:3.3.6")
+    implementation("androidx.paging:paging-compose:3.3.6")
     // optional - Paging 3 Integration
     implementation("androidx.room:room-paging:$room_version")
     // Declare koin-bom version

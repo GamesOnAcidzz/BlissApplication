@@ -35,7 +35,12 @@ import com.luis.blissapp.viewmodels.HomeViewmodel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun Home(modifier: Modifier, onEmojiListClick: () -> Unit, onAvatarListClick: () -> Unit,onSearchUsername:(String) -> Unit, viewmodel: HomeViewmodel = koinViewModel()){
+fun Home(modifier: Modifier,
+         onEmojiListClick: () -> Unit,
+         onAvatarListClick: () -> Unit,
+         onSearchUsername:(String) -> Unit,
+         onRepoListClick: () -> Unit,
+         viewmodel: HomeViewmodel = koinViewModel()){
     val randomEmoji by viewmodel.randomEmojiState.collectAsState()
     var username by rememberSaveable() {
         mutableStateOf("")
@@ -74,7 +79,9 @@ fun Home(modifier: Modifier, onEmojiListClick: () -> Unit, onAvatarListClick: ()
                 TextButton(onClick = {
                     onAvatarListClick()
                 }, content = { Text(stringResource(R.string.avatar_list))})
-                TextButton(onClick = {}, content = { Text(stringResource(R.string.google_repos))})
+                TextButton(onClick = {
+                    onRepoListClick()
+                }, content = { Text(stringResource(R.string.google_repos))})
             }
         }
     }

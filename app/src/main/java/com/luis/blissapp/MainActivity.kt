@@ -21,9 +21,11 @@ import androidx.navigation.compose.rememberNavController
 import com.luis.blissapp.ui.theme.BlissAppTheme
 import com.luis.blissapp.viewmodels.AvatarListViewModel
 import com.luis.blissapp.viewmodels.EmojiListViewModel
+import com.luis.blissapp.viewmodels.RepoListViewModel
 import com.luis.blissapp.views.AvatarList
 import com.luis.blissapp.views.EmojiList
 import com.luis.blissapp.views.Home
+import com.luis.blissapp.views.RepoList
 import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
@@ -57,7 +59,10 @@ fun App(modifier:Modifier){
                         navController.navigate("avatar_list/$searchedUsername")
                     }
 
-        })
+        },
+                onRepoListClick = {
+                    navController.navigate("repo_list")
+                })
         }
         composable("emoji_list") {
             val viewmodel:EmojiListViewModel = koinViewModel()
@@ -76,6 +81,10 @@ fun App(modifier:Modifier){
                 viewmodel.getAvatarByUsername(username = backStackEntry.arguments?.getString("username")!!)
             }
             AvatarList(modifier = modifier, viewmodel)
+        }
+        composable("repo_list") {
+            val viewmodel: RepoListViewModel = koinViewModel()
+            RepoList(modifier = modifier, viewmodel)
         }
         }
     }
