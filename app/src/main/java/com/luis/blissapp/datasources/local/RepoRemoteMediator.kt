@@ -21,7 +21,7 @@ class RepoRemoteMediator(
                 LoadType.REFRESH -> 1
                     LoadType.PREPEND -> return MediatorResult.Success(true)
                 LoadType.APPEND -> { page++
-                page}
+                }
             }
             val repo = apiService.getRepos(username = username, page = pageToLoad, size = state.config.pageSize)
 
