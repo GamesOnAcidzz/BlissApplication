@@ -58,7 +58,9 @@ fun AvatarList(modifier: Modifier = Modifier,viewmodel:AvatarListViewModel = koi
         }
 
         is NetworkResult.Error -> {
-            Text(text = state.message)
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                Text(text = state.message)
+            }
         }
 
         is NetworkResult.Success -> {
